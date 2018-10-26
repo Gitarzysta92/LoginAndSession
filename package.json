@@ -1,0 +1,24 @@
+{
+  "name": "loginandsession",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gitarzysta92/loginAndSession.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gitarzysta92/loginAndSession/issues"
+  },
+  "homepage": "https://github.com/Gitarzysta92/loginAndSession#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "handlebars": "^4.0.12"
+  }
+}
