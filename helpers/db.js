@@ -43,9 +43,7 @@ module.exports = (async function() {
 	await client.connect().catch((err) => { console.log(err); });
 
 	const db = client.db(dbName);
-	return {
-		module: db	
-	}
+	return db;
 })();
 
 

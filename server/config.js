@@ -7,6 +7,6 @@ module.exports = (app) => {
 	app.use(bodyParser.urlencoded({ extended: false }));
 	app.use(bodyParser.json());
 	//app.use(errorHandler);
-	app.use('/user', user)
+	app.use('/user', user);
 	return app;
 }

@@ -6,7 +6,7 @@ module.exports = {
 }
 
 function user(req, res, next) {
-	console.log(task.getUser(req.params.login));
+	task.getUser(req.params.login);
 	res.end("asd")
 }
 

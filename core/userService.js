@@ -1,4 +1,7 @@
+const app = require('../core');
+const assert = require('assert');
 let userDB = [];
+const test = 'string';
 
 module.exports = {
 	getUser,
@@ -7,19 +10,16 @@ module.exports = {
 
 
 function getUser(login) {
-	return userDB.find( usr => usr.login === login)
+	//db.getSingle({login: login}, 'inserts', result => console.log(result));
+		//const imported = db.met();
+		console.log(app.instance.method());
+		//db.met().then(db => console.log(db));
 }
 
 // need user object
 // example { login: string, password: string }
 function registerUser(userParam) {
-	let user = {
-		id: uniqueId(10),
-		login: userParam.login,
-		password: userParam.password,
-	}
-	userDB.push(user);
-	console.log(userDB);
+	
 }
 
 

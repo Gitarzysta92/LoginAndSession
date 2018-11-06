@@ -1,11 +1,11 @@
 var express = require('express'),
-	app = express(),
+	server = express(),
 	config = require('./config');
 
-app = config(app);
+server = config(server);
 
 module.exports.run = (port) => {
-	app.listen(port, () => console.log('Server listening on port ' + port));
+	server.listen(port, () => console.log('Server listening on port ' + port));
 };
 
 

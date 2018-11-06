@@ -1,25 +1,34 @@
-const db = require('../core/app').db;
-const assert = require('assert');
-let userDB = [];
+//const app = require('../core');
+//const tab = [];
+//const assert = require('assert');
+//let userDB = [];
+//const test = 'string';
 
 
+module.exports = function()  {
+
+	return this
+	
+}
+	
 
 
-	function getSingle(key, colName, callback) {
-	//console.log(db);
-	db.then(db => {
-		let col = db.collection(colName).findOne(key);
-		return col; 
-	}).then(col => {
-		callback(col);
-	}).catch(err => console.log(err));
+	
+/*
+
+return function getSingle(db, key, colName, callback) {
+		
+		db.then(db => {
+			let col = db.collection(colName).findOne(key);
+			return col; 
+		}).then(col => {
+			callback(col);
+		}).catch(err => console.log(err));
+	
 	}
 
 
-module.exports = {
-	getSingle,
-	registerUser
-};
+
 // need user object
 // example { login: string, password: string }
 function registerUser(userParam) {
@@ -54,4 +63,4 @@ function uniqueId(length){
 	}
 
 	return id.join('');
-}
+}*/

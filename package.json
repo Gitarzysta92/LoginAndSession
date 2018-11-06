@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "db": "C:\\\"Program Files\"\\MongoDB\\Server\\4.0\\bin\\mongod.exe --dbpath=\"d:\\work\\mongoDB\\user\"",
+    "server": "nodemon index.js",
+    "app": "npm-run-all --parallel db server"
   },
   "repository": {
     "type": "git",
@@ -19,6 +21,11 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
-    "handlebars": "^4.0.12"
+    "handlebars": "^4.0.12",
+    "mongodb": "^3.1.8"
+  },
+  "devDependencies": {
+    "madge": "^3.3.0",
+    "npm-run-all": "^4.1.3"
   }
 }
