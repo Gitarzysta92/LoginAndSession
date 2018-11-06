@@ -1,4 +1,4 @@
-//const app = require('../core');
+//app = require('../core');
 //const tab = [];
 //const assert = require('assert');
 //let userDB = [];
@@ -6,9 +6,7 @@
 
 
 module.exports = function()  {
-
-	return this
-	
+	return this;
 }
 	
 

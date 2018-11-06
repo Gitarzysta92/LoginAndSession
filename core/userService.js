@@ -12,7 +12,7 @@ module.exports = {
 function getUser(login) {
 	//db.getSingle({login: login}, 'inserts', result => console.log(result));
 		//const imported = db.met();
-		console.log(app.instance.method());
+		console.log(app);
 		//db.met().then(db => console.log(db));
 }
 
