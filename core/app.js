@@ -20,6 +20,13 @@ class App {
 		return this.method;
 	}
 
+	recursiveDirectoriesWalker(directory, callback) {
+		fs.readdir(directory, function(err, result){
+			result.forEach(item => )
+		});			
+
+	}
+
 	registerModules() {
 		const items = [];
 		//console.log(this.root_dir)
