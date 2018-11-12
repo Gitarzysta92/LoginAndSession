@@ -1,4 +1,4 @@
-const db_instance = require('../helpers/db.js');
+//const db_instance = require('../helpers/db.js');
 const db_methods = require('../helpers/dbMethods.js');
 const methods = require('../helpers/methods.js');
 const fs = require('fs');
@@ -7,61 +7,71 @@ const path = require('path');
 
 class DirMap {
 	constructor(startDir) {
-		this.directory = startDir;
-		this.dirModel = [];
+		this.directory = startDir.split(path.sep).join('/');
+		this.dirs = [];
+		this.pathFileModel = {};
 		this.walkerPromises = [];
-	
-		this.walker(this.directory);
-		//Promise.all(this.walkerPromises).then(x => console.log(x));
 	}
-/*
-	async recursiveDirWalker() {
-		const self = this;
-		await function recursiveWalker(directory) {
-			const injectDir = directory;
-			const initPromise = new Promise((resolve, reject) => {
-				walker(resolve)	
+
+	init() {
+		return this.recursiveDirWalker(this.directory);
+	}
+
+	recursiveDirWalker(entryPath) {	
+		const checkDir = new Promise((resolve, reject) => {
+			fs.stat(entryPath, (err, stats) => {
+				if (stats.isDirectory()) {
+					const readDir = new Promise((resolve, reject) => {
+						fs.readdir(entryPath, (err, result) => {
+							resolve(this.validation(result));
+						});		
+					}).then(result => {					
+						const nextIterations = [];
+						result.forEach(item => {
+							const currentPath = entryPath.concat('/'+ item);
+							nextIterations.push(this.recursiveDirWalker(currentPath));
+						}) 
+						return nextIterations;
+					}).then(x => {
+						Promise.all(x).then(x => resolve(x));
+					}).catch(err => err);
+				} else if(stats.isFile()) {
+					resolve(entryPath);
+				}
+				this.dirs.push(entryPath);
 			});
-			return readPromise;
-		}
+		})
+		return checkDir;
 	}
-*/
-	walker(directory) {
-		fs.readdir(directory, (err, result) => {
-			if (err) {
-				throw err;
-			} else {
-				result.forEach((item, arr, key) => {
-					const currentPath = path.resolve(directory, item); 
-					const checkDir = new Promise((resolve, reject) => {
-						fs.stat(currentPath, (err, stats) => {
-							if (err) {
-								reject(err)
-							} else {
-								if (stats.isDirectory() && this.dirValidation(currentPath)) {
-									resolve(currentPath);
-									this.dirModel.push(currentPath);
-									//this.recursiveDirWalker(currentPath);
-								} else if(stats.isFile()) {
-									this.dirModel.push(currentPath);
-									resolve(currentPath);
-									//this.recursiveDirWalker();
-								} 
-							}
-						});
-					}).then(x => console.log(this));
+
+	dirModel() {
+		this.recursiveDirWalker(this.directory)
+			.then(() => {
+				this.dirs.forEach(item => {
+					const isPath = /\./i;
 					
-					//if (Object.is(arr.length -1, key)) {
-					//	resolve(this.dirModel);
-					//}
-				});
-			}
-		});	
+					
+					if (!isPath.test(item)) {
+
+						console.log(item.replace(this.directory, ''));
+					}
+				})	
+			});
 	}
+
+
+	validation(pathItems) {
+		const validated = [];
+		const exclude = /(node_modules|\.git|\.gitignore)$/i;
+		pathItems.forEach(item => {
+			if (!exclude.test(item)) validated.push(item);	
+		}) 
+		return validated;
+	}	
 		
 
 	dirValidation(directory) {
-		const node = /(node_modules|\.git)$/i;
+		const node = /(node_modules|\.git|\.gitignore)$/i;
 		return !node.test(directory);
 	}
 
@@ -79,13 +89,13 @@ class DirMap {
 class App {
 	constructor(args) {
 		this.root_dir = args[0];
-		this.db = db_instance;
+		//this.db = db_instance;
 		this.method = db_methods.bind(this);
 		this.methods = methods;
 
 		this.modules = new DirMap(this.root_dir);
 
-		//console.log(this.modules.dirModel);
+		
 
 	}
 
@@ -116,7 +126,7 @@ module.exports = (function() {
 	return {
 		init: function(...args) {
 				this.app = createInstance(args);
-				this.app.modules
+				this.app.modules.dirModel();
 
 				delete this.init;
 			}

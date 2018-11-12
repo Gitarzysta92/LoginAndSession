@@ -9,7 +9,7 @@ const server = require('./server/server'),
 
 const launch = (port, app) => {
 	server.run(port, app)
-	app.init(path.dirname(require.main.filename));
+	app.init(__dirname);
 
 };
 
