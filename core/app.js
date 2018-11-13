@@ -47,13 +47,14 @@ class DirMap {
 	dirModel() {
 		this.recursiveDirWalker(this.directory)
 			.then(() => {
-				this.dirs.forEach(item => {
+				this.dirs.forEach((item, array, key) => {
 					const isPath = /\./i;
 					
-					
 					if (!isPath.test(item)) {
+						const dir = item.replace(this.directory, '');
+						const pathName = dir.substr(1);
 
-						console.log(item.replace(this.directory, ''));
+						console.log(pathName)
 					}
 				})	
 			});
