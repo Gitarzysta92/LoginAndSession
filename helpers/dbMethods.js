@@ -1,53 +1,24 @@
-//app = require('../core');
-//const tab = [];
-//const assert = require('assert');
-//let userDB = [];
-//const test = 'string';
 
 
-module.exports = function()  {
-	return this;
-}
-	
+module.exports = function(db) {
+	return {
+		getSingle: async function(key, colName) {
+			const database = await db;
+			return database.collection(colName).findOne(key);
+		},
 
-
-	
-/*
-
-return function getSingle(db, key, colName, callback) {
-		
-		db.then(db => {
-			let col = db.collection(colName).findOne(key);
-			return col; 
-		}).then(col => {
-			callback(col);
-		}).catch(err => console.log(err));
-	
+		registerUser: function(userParam) {
+			db.then(db => {
+				let r = db.collection('inserts').insertOne({
+					id: uniqueId(10),
+					login: userParam.login,
+					password: userParam.password
+				});
+			}).catch(err => console.log(err));
+		}
 	}
-
-
-
-// need user object
-// example { login: string, password: string }
-function registerUser(userParam) {
-	let user = {
-		id: uniqueId(10),
-		login: userParam.login,
-		password: userParam.password
-	}
-	userDB.push(user);
-db.then(db => {
-	let r = db.collection('inserts').insertOne({
-		id: uniqueId(10),
-		login: userParam.login,
-		password: userParam.password
-	});
-}).catch(err => console.log(err));
-
-	
-
-	
 }
+
 
 
 
@@ -61,4 +32,4 @@ function uniqueId(length){
 	}
 
 	return id.join('');
-}*/
+}

@@ -9,7 +9,9 @@ router.use(function timeLog (req, res, next) {
 });
 
 
-router.get('/:login', route.user);
-router.post('/register', route.register);
+router.get('/:name', route.getUser);
+router.post('/register', route.registerUser);
+
+//router.post('/login', route.loginUser);
 
 module.exports = router;

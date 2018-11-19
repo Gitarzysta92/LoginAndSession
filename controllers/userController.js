@@ -1,16 +1,22 @@
-const task = require('../core/userService');
+const app = require('../core/userService');
 
 module.exports = {
-	user,
-	register
+	getUser,
+	registerUser,
+	loginUser
 }
 
-function user(req, res, next) {
-	task.getUser(req.params.login);
-	res.end("asd")
+ function getUser(req, res, next) {
+	app.getUser(req.params.name).then(x => console.log(x));
+	res.end();
 }
 
-function register(req, res, next) {
-	task.registerUser(req.body);
+function registerUser(req, res, next) {
+	app.registerUser(req.body);
 	res.end("User added");
+}
+
+
+function loginUser(req, res, next) {
+	app.getUser();
 }
