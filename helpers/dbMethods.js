@@ -7,11 +7,11 @@ module.exports = function(db) {
 			return database.collection(colName).findOne(key);
 		},
 
-		registerUser: function(userParam) {
+		insertSingle: function(userParam, colName) {
 			db.then(db => {
-				let r = db.collection('inserts').insertOne({
+				let r = db.collection(colName).insertOne({
 					id: uniqueId(10),
-					login: userParam.login,
+					username: userParam.login,
 					password: userParam.password
 				});
 			}).catch(err => console.log(err));

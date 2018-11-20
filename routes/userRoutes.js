@@ -11,6 +11,7 @@ router.use(function timeLog (req, res, next) {
 
 router.get('/:name', route.getUser);
 router.post('/register', route.registerUser);
+router.post('/authenticate', route.authenticateUser);
 
 //router.post('/login', route.loginUser);
 
