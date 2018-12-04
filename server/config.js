@@ -1,12 +1,12 @@
 var fs = require('fs'),
 	bodyParser = require('body-parser'),
 	errorHandler = require('../helpers/errorHandler'),
-	user = require('../routes/userRoutes');
+	globalRouter = require('../core');
 
-module.exports = (app) => {
-	app.use(bodyParser.urlencoded({ extended: false }));
-	app.use(bodyParser.json());
+module.exports = (server) => {
+	server.use(bodyParser.urlencoded({ extended: false }));
+	server.use(bodyParser.json());
 	//app.use(errorHandler);
-	app.use('/user', user);
+	server.use('/', globalRouter.routes);
 	return app;
 }

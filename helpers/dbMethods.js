@@ -7,14 +7,13 @@ module.exports = function(db) {
 			return database.collection(colName).findOne(key);
 		},
 
-		insertSingle: function(userParam, colName) {
-			db.then(db => {
-				let r = db.collection(colName).insertOne({
+		insertSingle: async function(userParam, colName) {
+			const database = await db;
+			return database.collection(colName).insertOne({
 					id: uniqueId(10),
 					username: userParam.login,
 					password: userParam.password
 				});
-			}).catch(err => console.log(err));
 		}
 	}
 }
